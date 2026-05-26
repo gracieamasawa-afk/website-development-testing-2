@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ SHAN SHAN'S GLOBAL CHAT ⚡</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF2E63',
+                        secondary: '#7928CA',
+                        accent: '#00F5FF',
+                        neon: '#FFE600',
+                        discord: '#5865F2',
+                        dark: '#0F172A',
+                        glass: 'rgba(255, 255, 255, 0.15)',
+                        glassDark: 'rgba(15, 23, 42, 0.3)'
+                    },
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    boxShadow: {
+                        'glow': '0 0 30px rgba(255, 46, 99, 0.6), 0 0 60px rgba(121, 40, 202, 0.4)',
+                        'glowAccent': '0 0 25px rgba(0, 245, 255, 0.7)',
+                        'glowNeon': '0 0 30px rgba(255, 230, 0, 0.8), 0 0 50px rgba(255, 230, 0, 0.5)',
+                        'glowDiscord': '0 0 30px rgba(88, 101, 242, 0.8)',
+                        'glowRed': '0 0 30px rgba(255, 0, 0, 0.7)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto { content-visibility: auto; }
+            .text-shadow { text-shadow: 0 0 10px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.5); }
+            .text-shadow-lg { text-shadow: 0 0 15px #fff, 0 0 30px #FF2E63, 0 0 45px #7928CA; }
+            .btn-hover { @apply transition-all duration-300 hover:scale-[1.05] hover:shadow-glowAccent; }
+            .glass { @apply backdrop-blur-lg bg-glass border-2 border-white/30; }
+            .glass-dark { @apply backdrop-blur-md bg-glassDark border-2 border-white/20; }
+            .animate-float { animation: float 3s ease-in-out infinite; }
+            .animate-pulse-fast { animation: pulse 0.8s infinite; }
+            .animate-bounce-slow { animation: bounce 2s infinite; }
+            .animate-rainbow { animation: rainbow 3s linear infinite; }
+            .bg-gradient-main { background: linear-gradient(45deg, #FF2E63, #7928CA, #00F5FF, #FFE600); background-size: 400% 400%; animation: gradientShift 10s ease infinite; }
+            .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+            .scrollbar-hide::-webkit-scrollbar { display: none; }
+            @keyframes float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
+            @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+            @keyframes rainbow { 0% { color: #FF2E63; } 25% { color: #FFE600; } 50% { color: #00F5FF; } 75% { color: #7928CA; } 100% { color: #FF2E63; } }
+            @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8px) rotate(-3deg); } 75% { transform: translateX(8px) rotate(3deg); } }
+            @keyframes explode { 0% { transform: scale(1); opacity:1; } 50% { transform: scale(2); opacity:0.5; } 100% { transform: scale(0); opacity:0; } }
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            .shake { animation: shake 0.5s ease-in-out 3; }
+            .explode { animation: explode 1s ease-out forwards; }
+            .spin { animation: spin 2s linear infinite; }
+        }
+    </style>
+    <!-- Emoji Picker -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1/index.js" type="module"></script>
+</head>
+<body class="bg-gradient-main font-sans text-white min-h-screen flex flex-col items-center py-10 px-4 relative overflow-x-hidden">
+
+    <!-- ⚡ FLASHY HEADER -->
+    <div class="text-center mb-10 animate-float relative">
+        <div class="absolute -inset-4 bg-neon/20 blur-3xl rounded-full"></div>
+        <h1 class="text-[clamp(2.5rem,7vw,4rem)] font-black text-transparent bg-clip-text bg-gradient-to-r from-neon via-accent to-primary text-shadow-lg animate-pulse-fast leading-none">
+            ⚡ SHAN SHAN'S ⚡<br>GLOBAL CHAT
+        </h1>
+        <p class="text-white font-bold text-xl mt-2 text-shadow animate-rainbow">👑 ADMIN RULES FROM DISCORD 👑</p>
+        <div class="w-32 h-2 bg-gradient-to-r from-neon via-primary to-accent rounded-full mx-auto mt-4 shadow-glowNeon"></div>
+    </div>
+
+    <!-- 💥 SUPER NOTICEABLE CHAT BOX -->
+    <div class="glass rounded-[3rem] shadow-glowAccent w-full max-w-2xl p-8 mb-8 border-4 border-neon/50 relative">
+        <div class="absolute -inset-1 bg-white/5 blur-xl rounded-[3rem] -z-10"></div>
+        
+        <div id="chatBox" class="h-[580px] overflow-y-auto scrollbar-hide glass-dark rounded-2xl p-6 mb-6 border-2 border-white/20 space-y-4 text-lg">
+            <div class="text-center text-neon font-bold text-xl animate-bounce-slow">✨ WELCOME TO THE MOST EPIC CHAT EVER ✨</div>
+            <div class="text-center text-white/70 text-sm">💬 Chat • 😎 Emojis • 🖼️ Images • 🎩 Admin Magic Commands</div>
+        </div>
+
+        <!-- 📝 INPUT AREA WITH EMOJI & IMAGE UPLOAD -->
+        <div id="userInputArea" class="space-y-4">
+            <input type="text" id="userName" placeholder="🔥 Your cool nickname..." maxlength="20"
+                class="w-full px-5 py-4 bg-white/15 border-2 border-neon/40 rounded-xl focus:border-accent focus:outline-none text-white placeholder-white/70 backdrop-blur-sm text-lg font-medium shadow-glowAccent/20">
+            
+            <div class="flex gap-3 relative">
+                <!-- Emoji Button -->
+                <button type="button" id="emojiBtn" class="text-2xl px-4 py-3 glass rounded-xl hover:shadow-glowNeon btn-hover">😀</button>
+                <!-- Emoji Picker Popup -->
+                <emoji-picker id="emojiPicker" class="hidden absolute bottom-14 left-0 z-50 rounded-xl shadow-2xl"></emoji-picker>
+
+                <input type="text" id="userMessage" placeholder="💬 Type message... emojis work too! 😎" maxlength="500"
+                    class="flex-1 px-5 py-4 bg-white/15 border-2 border-neon/40 rounded-xl focus:border-accent focus:outline-none text-white placeholder-white/70 backdrop-blur-sm text-lg">
+                
+                <!-- Image Upload -->
+                <label for="imageUpload" class="cursor-pointer text-2xl px-4 py-3 glass rounded-xl hover:shadow-glowDiscord btn-hover">📸</label>
+                <input type="file" id="imageUpload" accept="image/*" class="hidden">
+
+                <button onclick="sendMessage()" 
+                    class="bg-gradient-to-r from-primary via-secondary to-accent px-8 py-4 rounded-xl font-bold text-lg btn-hover shadow-glow">
+                    SEND 🚀
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-white/80 font-medium text-shadow">© 2026 • Powered by Discord 🤩 Shan Shan</p>
+
+
+    <script>
+        // ✅ YOUR DETAILS ALREADY SET UP!
+        const DISCORD_WEBHOOK = "https://canary.discord.com/api/webhooks/1508749868087378061/f8mFGOagN0aRLFHCjzoVHKF0oLcKDlhfhAqFuBZaCrEVXjiLQ7fBtrJDAkB0AKkuuCII";
+        const ADMIN_ID = "1508748559141441557"; // ✅ YOUR ID HERE
+
+        let messages = JSON.parse(localStorage.getItem('globalChat')) || [];
+        let uploadedImage = null;
+
+        // 🎨 EMOJI PICKER LOGIC
+        const emojiBtn = document.getElementById('emojiBtn');
+        const emojiPicker = document.getElementById('emojiPicker');
+        const msgInput = document.getElementById('userMessage');
+
+        emojiBtn.addEventListener('click', () => emojiPicker.classList.toggle('hidden'));
+        emojiPicker.addEventListener('emoji-click', e => {
+            msgInput.value += e.detail.unicode;
+            emojiPicker.classList.add('hidden');
+        });
+
+        // 🖼️ IMAGE UPLOAD LOGIC
+        document.getElementById('imageUpload').addEventListener('change', e => {
+            const file = e.target.files[0];
+            if(file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    uploadedImage = ev.target.result;
+                    addMessage("📸 You", "Sent an image", 'user', uploadedImage);
+                    sendImageToDiscord(file);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 📤 SEND TEXT + EMOJIS TO DISCORD
+        async function sendMessage() {
+            const name = document.getElementById('userName').value.trim();
+            const msg = document.getElementById('userMessage').value.trim();
+            
+            if(!name || !msg) return alert("⚠️ Enter name & message!");
+
+            addMessage(name, msg, 'user');
+
+            try {
+                await fetch(DISCORD_WEBHOOK, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        username: `🌍 ${name}`,
+                        avatar_url: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=FF2E63&color=fff&size=128`,
+                        content: msg // ✅ EMOJIS WORK PERFECTLY!
+                    })
+                });
+            } catch(e) { alert("⚠️ Error sending message!"); }
+
+            msgInput.value = "";
+        }
+
+        // 📤 SEND IMAGE TO DISCORD
+        async function sendImageToDiscord(file) {
+            const name = document.getElementById('userName').value.trim() || "Guest";
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('username', `🌍 ${name} (Image)`);
+
+            try {
+                await fetch(DISCORD_WEBHOOK, { method: "POST", body: formData });
+            } catch(e) {}
+        }
+
+        // ➕ ADD MESSAGE TO CHAT — SUPER FLASHY STYLES
+        function addMessage(sender, text, type = 'user', imgSrc = null) {
+            const chat = document.getElementById('chatBox');
+            const div = document.createElement('div');
+            
+            if(type === 'admin') {
+                div.className = "glass border-discord/60 bg-discord/20 p-5 rounded-2xl max-w-[85%] ml-auto shadow-glowDiscord relative transition-all duration-300 hover:scale-[1.02] hover:shadow-glowDiscord";
+                div.innerHTML = `
+                    <span class="font-black text-discord text-xl text-shadow">👑 ADMIN ${escapeHtml(sender)} 👑</span>
+                    <div class="text-white text-lg mt-1 leading-relaxed">${escapeHtml(text)}</div>
+                    ${imgSrc ? `<img src="${imgSrc}" class="mt-3 rounded-lg max-w-full max-h-[300px] shadow-lg">` : ''}
+                `;
+            } else {
+                div.className = "glass border-white/30 p-4 rounded-2xl max-w-[85%] shadow-md hover:shadow-glowAccent/30 transition-all duration-300";
+                div.innerHTML = `
+                    <span class="font-bold text-accent text-lg text-shadow">👤 ${escapeHtml(sender)}</span>
+                    <div class="text-white/95 mt-1">${escapeHtml(text)}</div>
+                    ${imgSrc ? `<img src="${imgSrc}" class="mt-2 rounded-lg max-w-full max-h-[250px] shadow-md">` : ''}
+                `;
+            }
+
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+
+            messages.push({sender, text, type, imgSrc, time: Date.now()});
+            localStorage.setItem('globalChat', JSON.stringify(messages));
+        }
+
+        // 🎩 ENTERTAINING ADMIN COMMANDS — TYPE THESE IN DISCORD!
+        function runCommand(cmd) {
+            const body = document.body;
+            const chat = document.getElementById('chatBox');
+
+            switch(cmd.trim()) {
+                case "!clear":
+                    chat.innerHTML = '<div class="text-center text-neon font-bold text-2xl animate-bounce">✅ CHAT DESTROYED BY ADMIN 💥</div>';
+                    messages = []; localStorage.clear();
+                    break;
+
+                case "!shake":
+                    body.classList.add('shake');
+                    setTimeout(()=>body.classList.remove('shake'), 1500);
+                    break;
+
+                case "!rainbow":
+                    body.classList.add('animate-rainbow');
+                    setTimeout(()=>body.classList.remove('animate-rainbow'), 5000);
+                    break;
+
+                case "!spin":
+                    body.classList.add('spin');
+                    setTimeout(()=>body.classList.remove('spin'), 4000);
+                    break;
+
+                case "!boom":
+                    const boom = document.createElement('div');
+                    boom.textContent = "💥 BOOM 💥";
+                    boom.className = "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[150px] font-black text-neon explode z-50";
+                    body.appendChild(boom);
+                    break;
+
+                case "!glow":
+                    chat.classList.add('shadow-glowNeon', 'animate-pulse-fast');
+                    setTimeout(()=>chat.classList.remove('shadow-glowNeon','animate-pulse-fast'), 6000);
+                    break;
+            }
+        }
+
+        // 🔄 CHECK DISCORD EVERY 2 SECONDS
+        async function checkDiscordMessages() {
+            try {
+                const webhookParts = DISCORD_WEBHOOK.split('/');
+                const webhookId = webhookParts[6];
+                const webhookToken = webhookParts[7];
+                
+                const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://discord.com/api/webhooks/${webhookId}/${webhookToken}/messages?limit=10`)}`);
+                const data = await res.json();
+
+                data.forEach(m => {
+                    if(m.author.id === ADMIN_ID) {
+                        // 🎯 RUN COMMANDS
+                        if(m.content.startsWith('!')) {
+                            runCommand(m.content);
+                            return;
+                        }
+                        // ✅ SHOW ADMIN MESSAGE
+                        if(!messages.some(x => x.text === m.content && x.type === 'admin')) {
+                            let img = null;
+                            if(m.attachments.length > 0) img = m.attachments[0].url;
+                            addMessage(m.author.username, m.content, 'admin', img);
+                        }
+                    }
+                });
+
+            } catch(e) { /* Silent fail */ }
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        window.onload = () => {
+            messages.forEach(m => addMessage(m.sender, m.text, m.type, m.imgSrc));
+            setInterval(checkDiscordMessages, 2000);
+        };
+    </script>
+</body>
+</html>
